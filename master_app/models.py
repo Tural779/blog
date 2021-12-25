@@ -7,20 +7,12 @@ from django.contrib import admin
 
 
 
-class Blogname(models.Model):
-   name= models.CharField(max_length=55)
+class Blogdetails(models.Model):
+   villages = models.CharField(max_length=55)
+   accomodations = models.CharField(max_length=255)
+   transportations = models.CharField(max_length=255)
+   text = models.CharField(max_length=5000)
 
-class Blogvillage(models.Model):
-    villages = models.CharField(max_length=255)
-
-class Blogaccomodation(models.Model):
-    accomodations = models.CharField(max_length=255)
-
-class Blogtransportation(models.Model):
-    transportations = models.CharField(max_length=255)
-
-class Blogtext(models.Model):
-    text = models.CharField(max_length=5000)
 
 
 

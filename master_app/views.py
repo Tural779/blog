@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from .models import  Blogvillage ,Blogaccomodation ,Blogtransportation,Blogname, Blogtext
+from django.shortcuts import render, redirect
+from .models import  Blogdetails
 from django.http import Http404
+from .forms import addblog
 
 # Create your views here.
 
@@ -10,20 +11,33 @@ def index(request):
     return render(request, 'index.html')
 
 def blogpage(request):
-    blogs=Blogvillage.objects.all()
-    blogsa=Blogaccomodation.objects.all()
-    blogstr=Blogtransportation.objects.all()
-    blogsn = Blogname.objects.all()
-    blogst = Blogtext.objects.all()
+
+
+    blogs = Blogdetails.objects.all()
     print(blogs)
     context={
         "blogs":blogs,
-        "blogsa":blogsa,
-        "blogstr":blogstr,
-        "blogsn":blogsn,
-        "blogst":blogst
+
     }
     return render(request, 'blogpage.html',context)
+
+def addblogpage(request):
+    if request.method == 'POST' :
+        add_form = addblog(request.POST)
+
+        if add_form.is_valid():
+            add_form.save()
+
+            return redirect('index')
+        else:
+            print(add_form.errors)
+
+    else:
+        add_form = addblog()
+
+    context = {"add_form": add_form}
+
+    return render(request, "addblogpage.html", context)
 
 
 
